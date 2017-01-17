@@ -22,7 +22,13 @@ Git 版本回退
 		git checkout -- readme.txt
 		2.撤销工作区修改，回到和暂存区后的状区
 	删除文件
-		
+		1.方法一
+		rm test.txt
+		git add test.txt
+		git commit -m "rm test.txt"
+		2.方法二
+		git rm test.txt
+
 Git 分支管理
 	查看分支：git branch
 	创建分支：git branch <name>
@@ -30,3 +36,17 @@ Git 分支管理
 	创建+切换分支：git checkout -b <name>
 	合并某分支到当前分支：git merge <name>
 	删除分支：git branch -d <name>
+
+Git 标签管理
+	创建标签：
+		git tag v1.0
+	查看标签：
+		git tag
+	给commit id打标签：
+		git tag v2.0 6224223
+	查看标签信息
+		git show v1.0
+		git show v2.0
+	指定标签+说明文字
+		git tag -a v0.1 -m "version 0.1 released" 32332323
+
