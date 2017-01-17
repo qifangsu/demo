@@ -1,0 +1,32 @@
+Git 创建版本库
+	创建版本库：	
+		mkdir learngit
+		git init
+	添加文件到暂存区：
+		vi readme.txt
+		git add readme.txt
+	提交文件到版本库：
+		git commit -m “add readme.txt"
+
+Git 日志
+	查看仓库日志
+		git log
+		git log --pretty=oneline
+	
+Git 版本回退
+		git reset --hard e754686
+	工作区和版本库对比
+		git diff HEAD -- readme.txt
+	撤销修改
+		1.撤销工作区修改，回到和版本库一模一样的状态；
+		git checkout -- readme.txt
+		2.撤销工作区修改，回到和暂存区后的状区
+	删除文件
+		
+Git 分支管理
+	查看分支：git branch
+	创建分支：git branch <name>
+	切换分支：git checkout <name>
+	创建+切换分支：git checkout -b <name>
+	合并某分支到当前分支：git merge <name>
+	删除分支：git branch -d <name>
