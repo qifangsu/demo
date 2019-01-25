@@ -1,0 +1,51 @@
+apiVersion: v1
+data:
+  nginx.conf: |
+    worker_processes  5;
+    events {
+      worker_connections  4096;
+    }
+    http {
+        server {
+          listen  80;
+          location / {
+            proxy_pass http://192.168.6.142;
+            proxy_set_header Host 031508179996.coloc.huobi.com;
+            proxy_set_header x-forwarded-for $proxy_add_x_forwarded_for;
+            proxy_set_header x-ot-ip $remote_addr;
+          }
+        }
+    }
+kind: ConfigMap
+metadata:
+  name: nginxconfig
+  namespace: default
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nginx
+spec:
+  selector:
+    matchLabels:
+      run: nginx
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        run: nginx
+    spec:
+      containers:
+      - name: nginx
+        image: nginx:1.7.9
+        ports:
+        - containerPort: 80
+        volumeMounts:
+          - name: "config"
+            mountPath: "/etc/nginx/nginx.conf"
+            subPath: "nginx.conf"
+      volumes:
+        - name: "config"
+          configMap:
+            name: "nginxconfig"
